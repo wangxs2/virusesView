@@ -1,4 +1,5 @@
 import * as http from './http'
+import axios from 'axios'
 function isSystem() {
   var system = {
     win: false,
@@ -19,7 +20,7 @@ export default {
     /**
      *@method 引入axios
      */
-    // Vue.prototype.$axios = Axios;
+    Vue.prototype.$axios = axios;
     Vue.prototype.$fetchGet = http.fetchGet
     Vue.prototype.$fetchPost = http.fetchPost
     Vue.prototype.$fetchPut = http.fetchPut
