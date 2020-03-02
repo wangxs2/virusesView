@@ -31,10 +31,35 @@
         <div id="myMap" class="map-box">
           <dv-loading class="cladsa" v-if="isload">Loading...</dv-loading>
           <div class="search">
-            <div :class="selectIndex==index?'search-iteam active':'search-iteam'" v-for="(item,index) in searchData" :key="index" @click="toRouterIndex(iteam,index)">
+            <div :class="selectIndex==index?'search-iteam active':'search-iteam'" v-for="(item,index) in searchData" :key="index" @click="toRouterIndex(item,index)">
               {{item.name}}
             </div>
           </div>
+          <!-- 点位的弹窗 -->
+          <div class="markdetail" v-if="ismarker">
+            <div class="header">
+              <span style="color:#00C6FF;font-size:18px">详情</span>
+              <i class="el-icon-close" @click="ismarker=false" style="color:#ffffff;font-size:18px"></i>
+            </div>
+            <div class="contentmark">
+              <div class="name" style="color:#ffffff;font-size:18px">{{mapobj.hospitalName}}</div> 
+              <div class="address" style="margin:6px 0;"><i class="el-icon-location-outline" style="color:#C2D3FF;font-size:18px"></i>{{mapobj.hospitalAddress}}</div>
+              <div class="address" v-if="mapobj.source!==undefined&&mapobj.source!==''">信息来源：{{mapobj.source}}</div>
+              <div class="address" v-if="mapobj.createTime!==undefined" style="margin:6px 0;">发布日期：{{(mapobj.createTime).replace("+"," ")}}</div>
+              <div v-if="mapobj.linkTelarr1!==undefined&&mapobj.linkTelarr1.length > 0" style="margin:6px 0;font-size:18px;margin-bottom:2px;color:#ffffff">联系方式</div>
+              <div class="tel-phone" v-if="mapobj.linkTelarr1!==undefined&&mapobj.linkTelarr1.length > 0">
+                <div class="left-font" v-for="(iteam,index) in mapobj.linkTelarr1"
+                      :key="index"> <div style="font-size:15px;margin-left:4px">{{mapobj.linkPeoplearr1==undefined?"":mapobj.linkPeoplearr1[index]}}  {{iteam}}</div></div>
+              </div>
+              <div v-if="mapobj.needsNamearr!==undefined&&istype==1" style="margin:6px 0;font-size:18px;color:#ffffff">{{mapobj.orgType==1?'所需疫情防控物资':'可提供的物资/服务'}}</div>
+              <div v-if="mapobj.needsNamearr!==undefined&&istype==2" style="margin:6px 0;font-size:18px;color:#ffffff">{{mapobj.orgType==1?'招聘岗位和数量':mapobj.orgType==2?'可提供的岗位和数量/服务':''}}</div>
+              <div class="material" v-if="mapobj.needsNamearr!==undefined">
+                <div v-for="(item,index) in mapobj.needsNamearr"
+                      :key="index" class="boll-item">{{item}}</div>
+              </div>
+            </div>
+          </div>
+          <!-- 点位的弹窗 -->
         </div>
         <div class="table-box">
           <div class="tabbox"> <span class="tabfon"></span>物资推送</div>
@@ -43,7 +68,16 @@
           </div>
         </div>
       </div>
-      <div class="right-box"></div>
+      <div class="right-box">
+        <div class="top-right"></div>
+        <div class="bottom-right">
+          <!-- <div class="tabbox"> <span class="tabfon"></span>物资推送</div> -->
+          <el-scrollbar>
+            <!--以下是滚动的内容-->
+            
+          </el-scrollbar>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +92,10 @@ export default {
   data(){
     return{
       myMap:null,
+      ismarker:false,
+      istype:1,
       isload:false,
+      mapobj:{},
       config:{
        
       },
@@ -66,20 +103,20 @@ export default {
         {
           img:require("../assets/image/icon_1@3x.png"),
           name:'物资需求方',
-          leji:4980,
-          xinz:26
+          leji:1126,
+          xinz:4
         },
         {
           img:require("../assets/image/icon_2@3x.png"),
           name:'物资供给方',
-          leji:4980,
-          xinz:26
+          leji:597,
+          xinz:6
         },
         {
           img:require("../assets/image/icon_3@3x.png"),
           name:'社会组织',
-          leji:4980,
-          xinz:26
+          leji:232,
+          xinz:1
         },
         {
           img:require("../assets/image/icon_4@3x.png"),
@@ -90,14 +127,14 @@ export default {
         {
           img:require("../assets/image/icon_5@3x.png"),
           name:'招聘需求方(企业)',
-          leji:4980,
-          xinz:26
+          leji:497,
+          xinz:8
         },
         {
           img:require("../assets/image/icon_6@3x.png"),
-          name:'应聘提供方(工人)',
-          leji:4980,
-          xinz:26
+          name:'应聘提供方',
+          leji:39,
+          xinz:2
         }
       ],
       searchData:[
@@ -114,6 +151,7 @@ export default {
   },
   created(){
     this.getDataList()
+    this.getRealtime()
    
   },
   mounted () {
@@ -121,6 +159,12 @@ export default {
     this.gettabledata()
   },
   methods:{
+    getRealtime(){
+      this.$axios.get("http://119.3.10.184:19966/kindnessplatform/donate/getInfo?page=1&pageSize=60").then(res=> {
+         
+          })
+          
+    },
     //初始化地图
     getMap () {
       this.myMap = new AMap.Map("myMap", {
@@ -146,12 +190,38 @@ export default {
       if(this.mass){
        this.mass.clear()
       }
+      let phonearr=[]
+      let monarr=[]
       this.isload=true
+      this.istype=1
       this.$axios.get("https://rescue.sitiits.com/kindnessplatform/hospital/selectHospital").then(res=> {
         this.isload=false
         if(res.data.content){
           let markerslist=[]
           res.data.content.forEach(iteam=>{
+            if(iteam.hospitalAddress){
+              iteam.hospitalAddress=decodeURIComponent(encrypt.Decrypt(iteam.hospitalAddress))
+            }
+            if(iteam.hospitalName){
+              iteam.hospitalName=decodeURIComponent(encrypt.Decrypt(iteam.hospitalName))
+            }
+            if(iteam.needsName!==undefined){
+              iteam.needsNamearr=iteam.needsName.split(",")
+            }
+            iteam.linkPeoplearr1=[]
+            if(iteam.linkPeople){
+              monarr=iteam.linkPeople.split(",")
+              monarr.forEach(iten=>{
+                iteam.linkPeoplearr1.push(decodeURIComponent(encrypt.Decrypt(iten)))
+              })
+            }
+            if(iteam.linkTel){
+              iteam.linkTelarr1=[]
+              phonearr=iteam.linkTel.split(",")
+              phonearr.forEach(itm=>{
+                iteam.linkTelarr1.push(decodeURIComponent(encrypt.Decrypt(itm)))
+              })
+            }
             if(iteam.gaodeLat&&iteam.gaodeLon){
               iteam.gaodeLat=decodeURIComponent(encrypt.Decrypt(iteam.gaodeLat))
               iteam.gaodeLon=decodeURIComponent(encrypt.Decrypt(iteam.gaodeLon))
@@ -172,12 +242,22 @@ export default {
       if(this.mass){
        this.mass.clear()
       }
+      this.istype=2
       this.isload=true
       this.$axios.get("http://mrcez.acfic.org.cn:9966/recruitplatform/hospital/selectHospital") .then(res=>{
         this.isload=false
         if(res.data.content){
           let markerslist=[]
           res.data.content.forEach(iteam=>{
+            if(iteam.hospitalAddress){
+              iteam.hospitalAddress=decodeURIComponent(encrypt.Decrypt(iteam.hospitalAddress))
+            }
+            if(iteam.hospitalName){
+              iteam.hospitalName=decodeURIComponent(encrypt.Decrypt(iteam.hospitalName))
+            }
+            if(iteam.needsDescr!==undefined){
+              iteam.needsNamearr=iteam.needsDescr.split(",")
+            }
             if(iteam.gaodeLat&&iteam.gaodeLon){
               iteam.gaodeLat=decodeURIComponent(encrypt.Decrypt(iteam.gaodeLat))
               iteam.gaodeLon=decodeURIComponent(encrypt.Decrypt(iteam.gaodeLon))
@@ -252,6 +332,11 @@ export default {
         style: style
         });
       this.mass.on("click", (e) => {
+        this.ismarker=true
+          if(e.data){
+            let str=e.data
+            this.mapobj=str
+          }
       })
       this.mass.setMap(this.myMap);
     },
@@ -385,6 +470,67 @@ export default {
           background:rgba(0,0,0,0.5);
           color:#60ABFF;
        }
+       .markdetail{
+          position:absolute;
+          top:vh(88);
+          left:vw(156);
+          width:vw(520);
+          // height:vw(370);
+          z-index:10;
+          background:rgba(4,33,105,1);
+          border:1px solid rgba(48,75,142,1);
+          box-sizing: border-box;
+          padding: vw(10);
+          display: flex;
+          padding-top:0;
+          flex-direction: column;
+          .header{
+            width:100%;
+            height:vw(40);
+            display: flex;
+            justify-content: space-between;
+            align-items:center;
+          }
+          .contentmark{
+            flex:1;
+            border:1px solid rgba(48,75,142,1);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            color:#ffffff;
+            text-align:left;
+            color:#C2D3FF;
+            font-size:vw(16);
+            box-sizing: border-box;
+           padding: vh(18) vw(12);
+           .tel-phone{
+             display: flex;
+              flex-wrap: wrap;
+              color: #C2D3FF;
+              font-size: 16px;
+              margin-bottom:2px;
+              .left-font{
+                display: flex;
+                align-items: center;
+                width: 50%;
+                margin-bottom:4px;
+              }
+           }
+           .material{
+              display: flex;
+              flex-wrap: wrap;
+              color: #C2D3FF;
+              font-size: 16px;
+              margin-bottom:2px;
+              .boll-item{
+                display: flex;
+                align-items: center;
+                width: 50%;
+                margin-bottom:4px;
+              }
+            }
+          }
+       }
       }
       .table-box{
         width: 100%;
@@ -427,8 +573,20 @@ export default {
     .right-box{
       height: 100%;
       width: vw(510);
+      display: flex;
+      flex-direction: column;
        background:url("../assets/image/right.png");
       background-size:100% 100%;
+      .top-right{
+        width:100%;
+        height:vh(330);
+      }
+      .bottom-right{
+        flex:1;
+        // border: 1px solid red;
+        overflow: hidden;
+        // overflow-y: scroll;
+      }
     }
   }
 }
