@@ -60,6 +60,32 @@
             </div>
           </div>
           <!-- 点位的弹窗 -->
+          <!-- 图例 -->
+          <div class="tulibox" v-if="selectIndex==0">
+            <div class="itemimg" @click="searching(1)">
+              <img src="../assets/image/icon2.png" alt="">需方
+            </div>
+            <div class="itemimg" @click="searching(2)">
+              <img src="../assets/image/list9.png" alt="">供方
+            </div>
+            <div class="itemimg" @click="searching(3)">
+              <img src="../assets/image/list6.png" alt="">民间组织
+            </div>
+
+          </div>
+          <div class="tulibox" v-if="selectIndex==1">
+            <div class="itemimg" @click="searching(1)">
+              <img src="../assets/image/xf1.png" alt="">需方
+            </div>
+            <div class="itemimg" @click="searching(2)">
+              <img src="../assets/image/gf2.png" alt="">供方
+            </div>
+            <div class="itemimg" @click="searching(3)">
+              <img src="../assets/image/cl3.png" alt="">出力方
+            </div>
+
+          </div>
+          <!-- 图例 -->
         </div>
         <div class="table-box">
           <div class="tabbox"> <span class="tabfon"></span>物资推送</div>
@@ -94,6 +120,7 @@ export default {
     return{
       myMap:null,
       ismarker:false,
+      orgType:'',
       istype:1,
       isload:false,
       mapobj:{},
@@ -123,7 +150,7 @@ export default {
           img:require("../assets/image/icon_4@3x.png"),
           name:'平台物资对接',
           leji:144,
-          xinz:1321
+          xinz:1231
         },
         {
           img:require("../assets/image/icon_5@3x.png"),
@@ -178,8 +205,18 @@ export default {
       });
 
     },
+    searching(val){
+      this.orgType=val
+      if(this.selectIndex==1){
+        this.getMendata()
+      }else{
+        this.getDataList()
+      }
+
+    },
     toRouterIndex(row,index){
       this.selectIndex=index
+      this.orgType=''
       if(index==1){
         this.getMendata()
       }else{
@@ -195,7 +232,9 @@ export default {
       let monarr=[]
       this.isload=true
       this.istype=1
-      this.$axios.get("https://rescue.sitiits.com/kindnessplatform/hospital/selectHospital").then(res=> {
+      this.$axios.get("https://rescue.sitiits.com/kindnessplatform/hospital/selectHospital",{
+        params:{orgType:this.orgType}
+        }).then(res=> {
         this.isload=false
         if(res.data.content){
           let markerslist=[]
@@ -245,7 +284,11 @@ export default {
       }
       this.istype=2
       this.isload=true
-      this.$axios.get("http://mrcez.acfic.org.cn:9966/recruitplatform/hospital/selectHospital") .then(res=>{
+      this.$axios.get("http://mrcez.acfic.org.cn:9966/recruitplatform/hospital/selectHospital",{
+        params:{
+          orgType:this.orgType
+          }
+        }) .then(res=>{
         this.isload=false
         if(res.data.content){
           let markerslist=[]
@@ -470,6 +513,30 @@ export default {
           z-index:20;
           background:rgba(0,0,0,0.5);
           color:#60ABFF;
+       }
+       .tulibox{
+        position:absolute;
+        bottom:vh(10);
+        left:vw(10);
+        background:rgba(4,33,105,1);
+        z-index:10;
+        color:#9DB2D7;
+        box-sizing: border-box;
+        padding:vw(10);
+        border-radius:2px;
+        .itemimg{
+          display: flex;
+          justify-content: flex-start;
+          align-items:center;
+          margin-bottom:vw(6);
+          cursor:pointer;
+          img{
+            margin-right:vw(8);
+          }
+        }
+        .iteactive{
+          color:#4B7EFE
+        }
        }
        .markdetail{
           position:absolute;
