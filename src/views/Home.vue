@@ -11,13 +11,13 @@
         <div class="imgbox" style="font-size:20px;"> <img :src="item.img" width="22" height="22">{{item.name}}</div>
         <div class="xznum">
           <div class="leftnum" style="margin-right:30px">
-            <div class="dont1">平台累计(家)</div>
+            <div class="dont1">{{index==3?'累计次数(次)':'平台累计(家)'}}</div>
             <div class="dont2">
               <countup :endVal="item.leji"></countup>
             </div>
           </div>
           <div class="leftnum">
-            <div class="dont1">当日新增(家)</div>
+            <div class="dont1">{{index==3?'累计金额(万元)':'当日新增(家)'}}</div>
             <div class="dont2">
                <countup :endVal="item.xinz"></countup>
             </div>
@@ -72,10 +72,11 @@
         <div class="top-right"></div>
         <div class="bottom-right">
           <!-- <div class="tabbox"> <span class="tabfon"></span>物资推送</div> -->
-          <el-scrollbar>
+          <!-- <el-scrollbar> -->
             <!--以下是滚动的内容-->
+            <!-- <img src="../assets/image/rightimg.png" style="width:468px;height:100%" alt="" srcset=""> -->
             
-          </el-scrollbar>
+          <!-- </el-scrollbar> -->
         </div>
       </div>
     </div>
@@ -121,8 +122,8 @@ export default {
         {
           img:require("../assets/image/icon_4@3x.png"),
           name:'平台物资对接',
-          leji:4980,
-          xinz:26
+          leji:144,
+          xinz:1321
         },
         {
           img:require("../assets/image/icon_5@3x.png"),
@@ -279,7 +280,7 @@ export default {
         let data=[]
         if(res.data.list){
           res.data.list.forEach(iteam=>{
-            data.push([iteam.pubDate.substring(1,10),iteam.mainBody])
+            data.push([iteam.pubDate.substring(0,10),iteam.mainBody])
           })
           // this.config.data=data
           // console.log(this.config)
@@ -575,7 +576,7 @@ export default {
       width: vw(510);
       display: flex;
       flex-direction: column;
-       background:url("../assets/image/right.png");
+       background:url("../assets/image/right1.png");
       background-size:100% 100%;
       .top-right{
         width:100%;

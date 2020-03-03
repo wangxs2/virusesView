@@ -22,7 +22,7 @@ export default {
     // 小数点位数
     decimalPlaces: {
       type: Number,
-      required: false,
+      required: true,
       default: 0
     },
     // 是否数字分组
