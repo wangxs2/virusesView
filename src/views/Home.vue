@@ -150,7 +150,7 @@ export default {
           img:require("../assets/image/icon_4@3x.png"),
           name:'平台物资对接',
           leji:144,
-          xinz:1231
+          xinz:1321
         },
         {
           img:require("../assets/image/icon_5@3x.png"),
@@ -167,7 +167,7 @@ export default {
       ],
       searchData:[
         {
-          name:'物力',
+          name:'物资',
         },
         {
           name:'人力',
@@ -319,7 +319,7 @@ export default {
     },
     //
     gettabledata(){
-      this.$axios.get("https://rescue.sitiits.com/kindnessplatform/donate/getInfo?page=1&pageSize=60") .then(res=>{
+      this.$axios.get("https://rescue.sitiits.com/kindnessplatform/donate/getInfo?page=1&pageSize=15") .then(res=>{
         let data=[]
         if(res.data.list){
           res.data.list.forEach(iteam=>{
