@@ -27,17 +27,12 @@
     </div>
     <div class="content">
       <div class="center-box">
-        <div id="myMap" class="map-box">
+        <div class="center-box">
+          <div id="myMap" class="map-box">
             <dv-loading class="cladsa" v-if="isload">Loading...</dv-loading>
             <div class="search">
-              <div class="searchleft">
-                <div :class="selectIndex==index?'search-iteam active':'search-iteam'" v-for="(item,index) in searchData" :key="index" @click="toRouterIndex(item,index)">
+              <div :class="selectIndex==index?'search-iteam active':'search-iteam'" v-for="(item,index) in searchData" :key="index" @click="toRouterIndex(item,index)">
                 {{item.name}}
-                </div>
-              </div>
-              <div class="search-right">
-                <input placeholder="查询" />
-                <div class="simg"></div>
               </div>
             </div>
             <!-- 点位的弹窗 -->
@@ -91,32 +86,20 @@
 
             </div>
             <!-- 图例 -->
+          </div>
+          <div class="table-box">
+            <div class="tabbox"> <span class="tabfon"></span>物资推送</div>
+            <div class="lunbo">
+              <dv-scroll-board :config="config" style="width:100%;height:100%" />
+            </div>
+          </div>
         </div>
-        <div class="list-box" v-if="selectIndex==0"></div>
-        <div class="list-box1" v-if="selectIndex==1"></div>
-        
       </div>
       
       <div class="bottom-box">
-        <div class="bottom-left">
-           <div class="tabbox"> <span class="tabfon"></span>物资查询</div>
-            <div class="lunbo">
-              <div class="ditu">
-                <div :class="`ball ball${index}`" v-for="(item,index) in ballData" :key="index"></div>
-              </div>
-            </div>
-        </div>
-        <div class="bottom-center">
-           <div class="tabbox"> 
-             <div><span class="tabfon"></span>物资推送</div>
-             <div class="zbname">指标名称</div>
-            </div>
-            <div class="lunbo">
-              <tablebox></tablebox>
-            </div>
-        </div>
-        <div class="bottom-right"></div>
-       
+        <div class="left-bottom"></div>
+        <div class="center-bottom"></div>
+        <div class="right-bottom"></div>
       </div>
     </div>
   </div>
@@ -124,19 +107,16 @@
 <script>
 import encrypt from '@/libs/encrypt'
 import countup from './scrolltime';
-import tablebox from './tablescroll.vue'
 export default {
   name: 'Home',
   components: {
-    countup,
-    tablebox
+    countup
   },
   data(){
     return{
       myMap:null,
       ismarker:false,
       orgType:'',
-      contentsearch:'',
       istype:1,
       isload:false,
       mapobj:{},
@@ -187,47 +167,6 @@ export default {
         },
         {
           name:'人力',
-        },
-        {
-          name:'运输',
-        }
-      ],
-      ballData:[
-        {
-          name:'一次性医用口罩',
-          id:1,
-        },
-        {
-          name:'防护服',
-          id:2,
-        },
-        {
-          name:'宣传倡导',
-          id:3,
-        },
-        {
-          name:'宣传倡导',
-          id:4,
-        },
-        {
-          name:'宣传倡导',
-          id:5,
-        },
-        {
-          name:'防护服',
-          id:6,
-        },
-        {
-          name:'宣传倡导',
-          id:7,
-        },
-        {
-          name:'宣传倡导',
-          id:8,
-        },
-        {
-          name:'宣传倡导',
-          id:9,
         }
       ],
       selectIndex:0,
@@ -236,7 +175,7 @@ export default {
   },
   created(){
     this.getDataList()
-    // this.getRealtime()
+    this.getRealtime()
    
   },
   mounted () {
@@ -256,8 +195,8 @@ export default {
         animateEnable: false,
         resizeEnable: true,
         // preloadMode: true,
-        center:[35.588759,38.621803],
-        zoom:3,
+        center:[106.698499,35.74852],
+        zoom:4,
         mapStyle:'amap://styles/2e8b23bc8479cc26dc7f6102af235dc2',
       });
 
@@ -290,10 +229,7 @@ export default {
       this.isload=true
       this.istype=1
       this.$axios.get("https://rescue.sitiits.com/kindnessplatform/hospital/selectHospital",{
-        params:{
-          orgType:this.orgType,
-          content:this.contentsearch,
-          }
+        params:{orgType:this.orgType}
         }).then(res=> {
         this.isload=false
         if(res.data.content){
@@ -332,6 +268,7 @@ export default {
               markerslist.push(iteam)
             }
           })
+          
           this.createMarks(markerslist)
         }
       })
@@ -402,32 +339,32 @@ export default {
       console.log(citys)
      let style = [{
             url: require('../assets/image/icon2.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(12, 12),
+            size: new AMap.Size(24, 24)
         }, {
             url: require('../assets/image/icon2.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }, {
             url: require('../assets/image/list9.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }, {
             url: require('../assets/image/list6.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }, {
             url: require('../assets/image/xf1.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }, {
             url: require('../assets/image/gf2.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }, {
             url: require('../assets/image/cl3.png'),
-            anchor: new AMap.Pixel(10, 10),
-            size: new AMap.Size(20, 20)
+            anchor: new AMap.Pixel(11, 11),
+            size: new AMap.Size(22, 22)
         }
       ];
       this.mass = new AMap.MassMarks(citys, {
@@ -522,15 +459,22 @@ export default {
     flex:1;
     display: flex;
     flex-direction:column;
+    .left-box{
+      height: 100%;
+      width: vw(510);
+      margin-right: vw(14);
+      background:url("../assets/image/left.png");
+      background-size:100% 100%;
+    }
     .center-box{
+      height: 100%;
+      width: vw(832);
+      margin-right: vw(14);
       display: flex;
-      justify-content:space-between;
-      width:100%;
-      height:vh(558);
-      // background:pink;
+      flex-direction: column;
       .map-box{
-        width: vw(1356);
-        height: 100%;
+        width: 100%;
+        height: vh(560);
         border-radius:2px;
         position:relative;
        .search{
@@ -543,56 +487,10 @@ export default {
         background:rgba(255,255,255,0.06);
         display: flex;
         color:#ffffff;
-        justify-content: space-between;
         font-size:vw(20);
-        box-sizing:border-box;
-        padding-right:vw(10);
-        .searchleft{
-          display: flex;
-        }
-        .search-right{
-          width:vw(300);
-          height:100%;
-          box-sizing:border-box;
-          padding:vw(6) 0;
-          position:relative;
-          .simg{
-            position:absolute;
-            top:vw(12);
-            right:vw(14);
-            width:vw(20);
-             height:vw(20);
-            background:url("../assets/image/process/simg.png");
-            background-size:100% 100%;
-          }
-          input{
-            width:100%;
-            height:100%;
-            border-radius:vw(18);
-            background:rgba(4,13,46,0.7);
-            border:none;
-            color:#ffffff;
-            font-size:vw(17);
-            text-indent:vw(20);
-            
-          }
-          ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-              color:#9DB2D7;
-          }
-          :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-            color:#9DB2D7;
-          }
-          ::-moz-placeholder { /* Mozilla Firefox 19+ */
-            color:#9DB2D7;
-          }
-          :-ms-input-placeholder { /* Internet Explorer 10-11 */
-            color:#9DB2D7;
-          }
-        }
         .search-iteam{
           width:vw(120);
           display: flex;
-          font-weight:bold;
           justify-content:center;
           align-items:center;
           border-radius:2px;
@@ -698,29 +596,10 @@ export default {
           }
        }
       }
-      .list-box{
-        flex:1;
-        margin-left:vw(14);
-        background:url("../assets/image/process/rightw.png");
-        background-size:100% 100%;
-      }
-      .list-box1{
-        flex:1;
-        margin-left:vw(14);
-        background:url("../assets/image/process/rightr.png");
-        background-size:100% 100%;
-      }
-      
-
-    }
-    .bottom-box{
-      display: flex;
-      justify-content:space-between;
-      flex:1;
-      margin-top:vh(14);
-      .bottom-left{
-        width:vw(480);
-        height:100%;
+      .table-box{
+        width: 100%;
+        height: vh(284);
+        margin-top: vh(14); 
         box-shadow: rgba(5,28,113,0.5) 0 0 vw(10) vw(6) inset;
         border-radius:2px;
         background:rgba(5,28,113,0.2);
@@ -751,191 +630,28 @@ export default {
         .lunbo{
           flex:1;
           font-size:vw(16);
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          .ditu{
-            width:vw(453);
-            height:vw(182);
-            // border:1px solid #ffffff;
-            background:url("../assets/image/bg@3x.png");
-            background-size:100% 100%;
-            position:relative;
-            .ball{
-              border-radius:50%;
-              color:#ffffff;
-              text-align:center;
-              box-sizing:border-box;
-              padding:vw(14);
-              position:absolute;
-              cursor: pointer;
-            }
-            .ball0{
-              left:vw(154);
-              top:vw(7);
-              width:vw(126);
-              height:vw(127);
-              background:url("../assets/image/1@3x.png");
-              background-size:100% 100%;
-            }
-            .ball0:active{
-              width:vw(130);
-              height:vw(130);
-            }
-            .ball1{
-              left:vw(239);
-              top:vw(86);
-              width:vw(88);
-              height:vw(88);
-              background:url("../assets/image/2@3x.png");
-              background-size:100% 100%;
-            }
-            .ball1:active{
-              width:vw(92);
-              height:vw(92);
-            }
-            .ball2{
-              left:vw(154);
-              top:vw(120);
-              width:vw(73);
-              height:vw(73);
-              background:url("../assets/image/3@3x.png");
-              background-size:100% 100%;
-            }
-            .ball2:active{
-              width:vw(77);
-              height:vw(77);
-            }
-            .ball3{
-              left:vw(347);
-              top:vw(45);
-              width:vw(78);
-              height:vw(78);
-              background:url("../assets/image/4@3x.png");
-              background-size:100% 100%;
-            }
-            .ball3:active{
-              width:vw(82);
-              height:vw(82);
-            }
-            .ball4{
-              left:vw(71);
-              top:vw(71);
-              width:vw(88);
-              height:vw(88);
-              background:url("../assets/image/5@3x.png");
-              background-size:100% 100%;
-            }
-            .ball4:active{
-              width:vw(92);
-              height:vw(92);
-            }
-            .ball5{
-              left:vw(99);
-              top:vw(-24);
-              width:vw(78);
-              height:vw(78);
-              background:url("../assets/image/6@3x.png");
-              background-size:100% 100%;
-            }
-            .ball5:active{
-              width:vw(82);
-              height:vw(82);
-            }
-            .ball6{
-              left:vw(259);
-              top:vw(-14);
-              width:vw(112);
-              height:vw(112);
-              background:url("../assets/image/7@3x.png");
-              background-size:100% 100%;
-            }
-            .ball6:active{
-              width:vw(116);
-              height:vw(116);
-            }
-            .ball7{
-              left:vw(16);
-              top:vw(75);
-              width:vw(66);
-              height:vw(66);
-              background:url("../assets/image/8@3x.png");
-              background-size:100% 100%;
-            }
-            .ball7:active{
-              width:vw(70);
-              height:vw(70);
-            }
-             .ball8{
-              left:vw(22);
-              top:vw(0);
-              width:vw(83);
-              height:vw(83);
-              background:url("../assets/image/9@3x.png");
-              background-size:100% 100%;
-            }
-            .ball8:active{
-              width:vw(86);
-              height:vw(86);
-            }
-          }
         }
-      }
-      .bottom-center{
-        width:vw(862);
-        height:100%;
-        margin-left:vw(14);
-        box-shadow: rgba(5,28,113,0.5) 0 0 vw(10) vw(6) inset;
-        border-radius:2px;
-        background:rgba(5,28,113,0.2);
-        box-sizing: border-box;
-        padding: vh(18) vw(24);
-        overflow:hidden;
-        display: flex;
-        flex-direction: column;
-        .tabbox{
-          width:100%;
-          height:vh(24);
-          display: flex;
-          justify-content:space-between;
-          align-items:center;
-          font-size:vw(22);
-          font-family:Microsoft YaHei;
-          font-weight:bold;
-          color:rgba(75,126,254,1);
-          margin-bottom:vh(14);
-          .zbname{
-             width:vw(86);
-              height:vw(30);
-              font-size:vw(17);
-              line-height:vw(29);
-              background:url("../assets/image/process/bg_7_nor@3x.png");
-              background-size:100% 100%;
-              color:#00E4FF;
-              cursor: pointer;
-          }
-          .tabfon{
-            display:inline-block;
-            width:vw(4);
-            height:vh(20);
-            background:rgba(75,126,254,1);
-            margin-right:vw(8);
-          }
-        }
-        .lunbo{
-          flex:1;
-          font-size:vw(16);
-        }
-      }
-      .bottom-right{
-        flex:1;
-        margin-left:vw(14);
-        background:url("../assets/image/process/bottom.png");
-        background-size:100% 100%;
       }
 
     }
-    
+    .right-box{
+      height: 100%;
+      width: vw(510);
+      display: flex;
+      flex-direction: column;
+       background:url("../assets/image/right1.png");
+      background-size:100% 100%;
+      .top-right{
+        width:100%;
+        height:vh(330);
+      }
+      .bottom-right{
+        flex:1;
+        // border: 1px solid red;
+        overflow: hidden;
+        // overflow-y: scroll;
+      }
+    }
   }
 }
 </style>

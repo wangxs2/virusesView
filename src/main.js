@@ -5,6 +5,7 @@ import store from './store'
 import common from './libs/common.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'swiper/css/swiper.min.css'
 // 将自动注册所有组件为全局组件
 import dataV from '@jiaminghi/data-view'
 Vue.use(ElementUI);
