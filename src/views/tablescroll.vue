@@ -40,12 +40,12 @@ components: {
             swipertable:null,
             findVisible:[
                 {
-                    time:"03-01 22:05",
+                    time:"03-17",
                     zhuangtai:[
                         {
                             color:"blue",
                             name:"已发布",
-                            time:"03-01 23:00"
+                            time:"03-17"
                         },
                         {
                             color:"grey",
@@ -59,19 +59,19 @@ components: {
                         }
                     ],
                     status:"已发布",
-                    content:"提赛德大学中国学生学者联谊会,需要N95口罩500个,一次性医用口罩：1500个,护目镜120个,消毒液200瓶,75%浓度酒精200瓶,联系…",
+                    content:"提赛德大学中国学生学者联谊会,需要N95口罩500个,一次性医用口罩：1500个,护目镜120个,消毒液200瓶,75%浓度酒精200瓶,联系方式：梁灵泽:17371261806",
                 },
                 {
-                    time:"03-02 22:05",
-                    status:"对接中",
+                    time:"03-17",
+                    status:"已发布",
                     zhuangtai:[
                         {
                             color:"blue",
                             name:"已发布",
-                            time:"03-01 22:00"
+                            time:"03-17"
                         },
                         {
-                            color:"yellow",
+                            color:"grey",
                             name:"对接中",
                             time:null
                         },
@@ -84,26 +84,224 @@ components: {
                     content:"温哥华西门菲莎大学SFU CSSA 请求物资提供，需要外科口罩1000个，护目镜200个，联系方式：Hanyi Jiang，15000990989",
                 },
                 {
-                    time:"03-03 22:05",
+                    time:"03-16",
+                    status:"对接中",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-16"
+                        },
+                        {
+                            color:"yellow",
+                            name:"对接中",
+                            time:"03-19"
+                        },
+                        {
+                            color:"grey",
+                            name:"已落实",
+                            time:null
+                        }
+                    ],
+                    content:"曼彻斯特中国学生学者联谊会请求物资捐赠,需要一次性医用口罩100000个,护目镜10000个,免洗洗手液10000瓶,国内联系方式:0774-6337415",
+                },
+                {
+                    time:"03-15",
+                    status:"对接中",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-15"
+                        },
+                        {
+                            color:"yellow",
+                            name:"对接中",
+                            time:"03-19"
+                        },
+                        {
+                            color:"grey",
+                            name:"已落实",
+                            time:null
+                        }
+                    ],
+                    content:"纽卡斯尔大学外联部,需要N95口罩200个,一次性医用口罩：1000个,75%浓度酒精不限,联系方式：李晨曦:07802568715",
+                },
+                {
+                    time:"03-15",
+                    status:"对接中",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-15"
+                        },
+                        {
+                            color:"yellow",
+                            name:"对接中",
+                            time:"03-19"
+                        },
+                        {
+                            color:"grey",
+                            name:"已落实",
+                            time:null
+                        }
+                    ],
+                    content:"意大利中华协会，需要一次性空照2000个，联系方式：Associazione promozione sociale zhonghua:0039-3351775505",
+                },
+                {
+                    time:"03-12",
                     status:"已落实",
                     zhuangtai:[
                         {
                             color:"blue",
                             name:"已发布",
-                            time:"03-01 22:00"
+                            time:"03-12"
                         },
                         {
                             color:"blue",
                             name:"对接中",
-                            time:null
+                            time:"03-15"
                         },
                         {
                             color:"blue",
                             name:"已落实",
-                            time:null
+                            time:"03-17"
                         }
                     ],
-                    content:"温哥华西门菲莎大学SFU CSSA 请求物资提供，需要外科口罩1000个，护目镜200个，联系方式：Hanyi Jiang，15000990989",
+                    content:"unione degli studenti e studiosi cinesi dell'universita di roma 'sapienza',需要一次性医用口罩4000个,联系方式：liu zhenbei:39 3281173914",
+                },
+                {
+                    time:"03-10",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-10"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-13"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-14"
+                        }
+                    ],
+                    content:"巴东志愿者协会 需要提供：消毒设备10个，测温仪20个，联系方式：冯永山 15717260222",
+                },
+                {
+                    time:"03-08",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-08"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-11"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-12"
+                        }
+                    ],
+                    content:"云南保山、龙陵、迪庆等山区孩子缺口罩，请求资助，联系人，孙女士13320505052",
+                },
+                {
+                    time:"03-04",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-04"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-06"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-08"
+                        }
+                    ],
+                    content:"雷神山医院求购优质冲锋衣1500套，希望今明两天到货，联系人康老师：19947558224",
+                },
+                {
+                    time:"03-02",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-02"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-05"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-07"
+                        }
+                    ],
+                    content:"额温计8000只，符合国家相关标准，公对公交易，联系人，柴先生：13120921190",
+                },
+                {
+                    time:"03-02",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-02"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-05"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-07"
+                        }
+                    ],
+                    content:"额温计8000只，符合国家相关标准，公对公交易，联系人，柴先生：13120921190",
+                },
+                {
+                    time:"03-02",
+                    status:"已落实",
+                    zhuangtai:[
+                        {
+                            color:"blue",
+                            name:"已发布",
+                            time:"03-02"
+                        },
+                        {
+                            color:"blue",
+                            name:"对接中",
+                            time:"03-05"
+                        },
+                        {
+                            color:"blue",
+                            name:"已落实",
+                            time:"03-07"
+                        }
+                    ],
+                    content:"海南工商联需要一次性医用口罩若干，额温计若干，符合国家医用标准，对公交易，联系人，杨先生：13816609662",
                 },
             ]
         }
@@ -157,10 +355,10 @@ components: {
           height: 100%;
         }
         .thead1 {
-            width: vw(135);
+            width: vw(100);
         }
         .thead2 {
-            width: vw(341);
+            width: vw(376);
         }
         .thead3 {
             flex:1;
@@ -196,10 +394,10 @@ components: {
                         padding:vh(14) 0;
                     }
                     .table-foncom1{
-                        width: vw(135);
+                        width: vw(100);
                     }
                     .table-foncom2{
-                        width: vw(341);
+                        width: vw(376);
                         text-align:left;
                     }
                     .statusSa{

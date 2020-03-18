@@ -36,7 +36,7 @@
                 </div>
               </div>
               <div class="search-right">
-                <input placeholder="查询" />
+                <input v-model="contentsearch1" @blur="searchdata" placeholder="查询" />
                 <div class="simg"></div>
               </div>
             </div>
@@ -60,7 +60,7 @@
                 <div v-if="mapobj.needsNamearr!==undefined&&istype==2" style="margin:6px 0;font-size:18px;color:#ffffff">{{mapobj.orgType==1?'招聘岗位和数量':mapobj.orgType==2?'可提供的岗位和数量/服务':''}}</div>
                 <div class="material" v-if="mapobj.needsNamearr!==undefined">
                   <div v-for="(item,index) in mapobj.needsNamearr"
-                        :key="index" class="boll-item">{{item}}</div>
+                        :key="index" class="boll-item">{{needtabs[item]}}</div>
                 </div>
               </div>
             </div>
@@ -99,15 +99,15 @@
       
       <div class="bottom-box">
         <div class="bottom-left">
-           <div class="tabbox"> <span class="tabfon"></span>物资查询</div>
+           <div class="tabbox"> <span class="tabfon"></span>服务能力</div>
             <div class="lunbo">
               <div class="ditu">
-                <div :class="`ball ball${index}`" v-for="(item,index) in ballData" :key="index"></div>
+                <div :class="`ball ball${index}`" v-for="(item,index) in ballData" :key="index" @click="ballclick(item)"></div>
               </div>
             </div>
         </div>
         <div class="bottom-center">
-           <div class="tabbox"> 
+            <div class="tabbox"> 
              <div><span class="tabfon"></span>物资推送</div>
              <div class="zbname">指标名称</div>
             </div>
@@ -115,7 +115,29 @@
               <tablebox></tablebox>
             </div>
         </div>
-        <div class="bottom-right"></div>
+        <div class="bottom-right">
+           <div class="tabbox"> 
+             <div><span class="tabfon"></span>实时动态<span style="font-size:18px;color:#BDD3FF;font-weight:none;margin-left:16px">截至2020/03/12 12:00</span></div>
+             <div class="zbname"></div>
+            </div>
+            <div class="lunbo">
+              <div class="iteamsa" v-for="(iteam,index) in realtimedata" :key="index">
+                <div class="timesa" style="wideh:100px">
+                  <div style="display:flex;flex:1;color:#ffffff;flex-direction:column;font-size:18px">
+                    <div style="text-align:right">{{iteam.status}}</div><div style="text-align:right">{{iteam.time}}</div>
+                  </div>
+                </div>
+                <div class="timesa" style="wideh:20px;margin: 0 10px;">
+                  <img src="../assets/image/roll.png" width="16" height="16" />
+                  <div v-if="index!==realtimedata.length-1" style="width:2px;height:60px;background:rgba(0,198,255,0.2);margin-left:7px"></div>
+                </div>
+                <div class="timesa" style="flex:1">
+                  <div style="margin-top:0.05rem;font-size:18px;color:#ffffff;text-align:left;"><span class="news" v-if="index==0">最新</span>{{iteam.content}}</div>
+                </div>
+              </div>
+            </div>
+
+        </div>
        
       </div>
     </div>
@@ -137,9 +159,37 @@ export default {
       ismarker:false,
       orgType:'',
       contentsearch:'',
+      contentsearch1:'',
       istype:1,
       isload:false,
       mapobj:{},
+      realtimedata:[
+        {
+          status:"8天前",
+          time:"03-04 11:37",
+          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        },
+        {
+          status:"9天前",
+          time:"03-05 11:37",
+          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        },
+        {
+          status:"10天前",
+          time:"03-05 11:37",
+          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        },
+        {
+          status:"11天前",
+          time:"03-05 11:37",
+          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        },
+        {
+          status:"12天前",
+          time:"03-05 11:37",
+          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        }
+      ],
       config:{
        
       },
@@ -188,29 +238,33 @@ export default {
         {
           name:'人力',
         },
-        {
-          name:'运输',
-        }
+        // {
+        //   name:'运输',
+        // }
       ],
+       needtabs:[" ","N95口罩","一次性医用口罩","一次性手术衣","医用手套","外科口罩","护目镜",
+    "防护眼罩","防护面罩","防污染鞋套","防护服","隔离衣","红外测温仪","医用帽子",
+    "消毒液","75%浓度酒精","消毒设备","对口药品",
+    "耳温枪","负压担架","负压救护车","紫外灯","全面型呼吸防护器","宣传倡导","心理干预","物资发放","疫情排查","社区服务","其他服务","医疗救助"],
       ballData:[
         {
           name:'一次性医用口罩',
           id:1,
         },
         {
-          name:'防护服',
+          name:'意大利',
           id:2,
         },
         {
-          name:'宣传倡导',
+          name:'物资发放',
           id:3,
         },
         {
-          name:'宣传倡导',
+          name:'英国',
           id:4,
         },
         {
-          name:'宣传倡导',
+          name:'疫情排查',
           id:5,
         },
         {
@@ -218,7 +272,7 @@ export default {
           id:6,
         },
         {
-          name:'宣传倡导',
+          name:'N95口罩',
           id:7,
         },
         {
@@ -226,7 +280,7 @@ export default {
           id:8,
         },
         {
-          name:'宣传倡导',
+          name:'防冲击面罩',
           id:9,
         }
       ],
@@ -264,6 +318,7 @@ export default {
     },
     searching(val){
       this.orgType=val
+      this.contentsearch=""
       if(this.selectIndex==1){
         this.getMendata()
       }else{
@@ -276,9 +331,27 @@ export default {
       this.orgType=''
       if(index==1){
         this.getMendata()
+      }else if(index==0){
+        this.getDataList()
       }else{
+
+      }
+    },
+    searchdata(){
+      this.contentsearch=this.contentsearch1
+      if(this.selectIndex==1){
+        this.getMendata()
+      }else if(this.selectIndex==0){
         this.getDataList()
       }
+    },
+    ballclick(row){
+      this.contentsearch=row.name
+      if(this.selectIndex==0){
+         this.getDataList()
+      }
+     
+
     },
     //物力
     getDataList(){
@@ -399,7 +472,6 @@ export default {
       })
     },
     createMarks(citys){
-      console.log(citys)
      let style = [{
             url: require('../assets/image/icon2.png'),
             anchor: new AMap.Pixel(10, 10),
@@ -442,6 +514,7 @@ export default {
           }
       })
       this.mass.setMap(this.myMap);
+       this.myMap.setFitView();
     },
 
   }
@@ -464,6 +537,12 @@ export default {
   box-sizing: border-box;
   padding: vw(19);
   padding-top: 0;
+  position:relative;
+  .bigdia{
+    position:absolute;
+    top:0;
+    left:0;
+  }
   .header{
     width: 100%;
     height: vh(74);
@@ -639,7 +718,7 @@ export default {
        .markdetail{
           position:absolute;
           top:vh(88);
-          left:vw(156);
+          left:vw(356);
           width:vw(520);
           // height:vw(370);
           z-index:10;
@@ -929,9 +1008,71 @@ export default {
       }
       .bottom-right{
         flex:1;
+        overflow: hidden;
+        width: vw(510);
+        height: vw(284);
         margin-left:vw(14);
-        background:url("../assets/image/process/bottom.png");
-        background-size:100% 100%;
+        // background:url("../assets/image/process/bottom.png");
+        // background-size:100% 100%;
+        display: flex;
+        flex-direction: column;
+          box-shadow: rgba(5,28,113,0.5) 0 0 vw(10) vw(6) inset;
+        border-radius:2px;
+        background:rgba(5,28,113,0.2);
+        box-sizing: border-box;
+        padding: vh(18) vw(24);
+        .tabbox{
+          width:100%;
+          height:vh(24);
+          display: flex;
+          justify-content:space-between;
+          align-items:center;
+          font-size:vw(22);
+          font-family:Microsoft YaHei;
+          font-weight:bold;
+          color:#F4DE71;
+          margin-bottom:vh(14);
+          
+          .tabfon{
+            display:inline-block;
+            width:vw(4);
+            height:vh(20);
+            background:#F4DE71;
+            margin-right:vw(8);
+          }
+        }
+        .lunbo{
+          flex:1;
+          width: 100%;
+          height: vh(234);
+          font-size:vw(16);
+          overflow: hidden;
+          overflow-y: scroll;
+          .iteamsa {
+            width:100%;
+            display: flex;
+            justify-content: flex-start;
+            .timesa {
+              display: flex;
+              flex-direction: column;
+              .news{
+                display: inline-block;
+                width:51px;
+                height:24px;
+                background:rgba(255,100,77,1);
+                border-radius:4px;
+                color:#ffffff;
+                text-align: center;
+                line-height: 24px;
+                margin-right:6px;
+              }
+            }
+          }
+          
+        }
+        .lunbo::-webkit-scrollbar {
+            width: 0;
+          }
       }
 
     }
