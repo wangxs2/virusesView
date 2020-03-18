@@ -26,7 +26,9 @@
       </div>
     </div>
     <div class="content">
-      <div class="left-box"></div>
+      <div class="left-box">
+        
+      </div>
       <div class="center-box">
         <div id="myMap" class="map-box">
           <dv-loading class="cladsa" v-if="isload">Loading...</dv-loading>
@@ -119,6 +121,24 @@ export default {
   data(){
     return{
       myMap:null,
+      configwater:{
+          data: [45],
+          colors:["#FFBC3C","#FF7A0F"],
+          waveOpacity:1,
+          waveNum:2,
+          waveHeight:10,
+          formatter:'{value}分',
+          shape: 'round'
+      },
+      configwater1:{
+          data: [63],
+          colors:["#FFBC3C","#216AFF"],
+          waveOpacity:1,
+          waveNum:2,
+          waveHeight:10,
+          formatter:'{value}分',
+          shape: 'round'
+      },
       ismarker:false,
       orgType:'',
       istype:1,
@@ -131,8 +151,8 @@ export default {
         {
           img:require("../assets/image/icon_1@3x.png"),
           name:'物资需求方',
-          leji:1126,
-          xinz:4
+          leji:1129,
+          xinz:3
         },
         {
           img:require("../assets/image/icon_2@3x.png"),
@@ -143,8 +163,8 @@ export default {
         {
           img:require("../assets/image/icon_3@3x.png"),
           name:'社会组织',
-          leji:232,
-          xinz:1
+          leji:250,
+          xinz:2
         },
         {
           img:require("../assets/image/icon_4@3x.png"),
@@ -155,14 +175,14 @@ export default {
         {
           img:require("../assets/image/icon_5@3x.png"),
           name:'招聘需求方(企业)',
-          leji:497,
-          xinz:8
+          leji:671,
+          xinz:6
         },
         {
           img:require("../assets/image/icon_6@3x.png"),
           name:'应聘提供方',
-          leji:39,
-          xinz:2
+          leji:53,
+          xinz:1
         }
       ],
       searchData:[
@@ -393,6 +413,21 @@ export default {
   font-size:vw(16);
   color:#BDD3FF;
 }
+ .mywater{
+   svg{
+     text{
+       fill:#ffffff;
+       stroke:none;
+     }
+   }
+   canvas{
+      margin-left: 0 !important;
+    }
+  }
+
+  .mywater ellipse, .mywaterl rect{
+    stroke-width:2px !important;
+  }
 </style>
 <style lang="scss" scoped>
 .home {
@@ -469,6 +504,17 @@ export default {
       margin-right: vw(14);
       background:url("../assets/image/left.png");
       background-size:100% 100%;
+      .mywater{
+        width: vw(150);
+        height: vw(150);
+        // .dv-water-pond-level canvas{
+        //   margin-left: 0 !important;
+        // }
+      }
+      .mywater1{
+        width: vw(150);
+        height: vw(150);
+      }
     }
     .center-box{
       height: 100%;
