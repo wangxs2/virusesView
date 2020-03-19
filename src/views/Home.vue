@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <div class="bigdia" v-if="isbig">
+      <div class="bigimg">
+        <div class="close" @click="isbig=false"></div>
+      </div>
+      <!-- <img src="@/assets/image/liucheng.png" alt="" srcset=""> -->
+    </div>
     <div class="header">
       <div class="headerimg">
         <!-- <dv-decoration-2 style="width:100%;height:5px;" /> -->
@@ -109,7 +115,7 @@
         <div class="bottom-center">
             <div class="tabbox"> 
              <div><span class="tabfon"></span>物资推送</div>
-             <div class="zbname">指标名称</div>
+             <div class="zbname" @click="isbig=true">对接流程</div>
             </div>
             <div class="lunbo">
               <tablebox></tablebox>
@@ -157,6 +163,7 @@ export default {
     return{
       myMap:null,
       ismarker:false,
+      isbig:false,
       orgType:'',
       contentsearch:'',
       contentsearch1:'',
@@ -166,28 +173,63 @@ export default {
       realtimedata:[
         {
           status:"8天前",
-          time:"03-04 11:37",
+          time:"03-11 11:37",
           content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+        },
+        {
+          status:"8天前",
+          time:"03-11 10:21",
+          content:"凝聚非公力量，防疫复工双促进--通辽市工商联（总商会）在行动",
+        },
+        {
+          status:"8天前",
+          time:"03-11 08:20",
+          content:"黑龙江出台财政战“疫”复工黄金“十条”",
         },
         {
           status:"9天前",
-          time:"03-05 11:37",
-          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+          time:"03-10 17:37",
+          content:"关于推广应用全国工商联复工复产人才对接平台做好供需对接工作的通知",
+        },
+        {
+          status:"9天前",
+          time:"03-10 12:37",
+          content:"阶段性减免涉企征信服务收费【金融财税】",
+        },
+        {
+          status:"9天前",
+          time:"03-10 11:37",
+          content:"中国制造业500强企业复工复产调查 报告",
+        },
+        {
+          status:"9天前",
+          time:"03-10 08:37",
+          content:"广东：复工复产有困难？企业可线上求助",
         },
         {
           status:"10天前",
-          time:"03-05 11:37",
-          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+          time:"03-09 11:37",
+          content:"湖北省出资企业减免中小微企业房租",
+        },
+        {
+          status:"10天前",
+          time:"03-09 10:37",
+          content:"天津市推进复工复产 加速工业运行“引擎”",
+        },
+        {
+          status:"10天前",
+          time:"03-09 07:37",
+          content:"“特别专列”从脱贫现场抵达复工战场",
         },
         {
           status:"11天前",
-          time:"03-05 11:37",
-          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+          time:"03-08 12:37",
+          content:"政府服务送上门 企业复工更有序(统筹抓好改革发展稳定各项工作)",
         },
         {
-          status:"12天前",
-          time:"03-05 11:37",
-          content:"关于积极发挥各级工商联所属商会作用支持民营企业复工复产通知",
+          status:"11天前",
+          time:"03-08 07:37",
+          content:"援企稳岗 有序推进复工复产",
         }
       ],
       config:{
@@ -542,6 +584,32 @@ export default {
     position:absolute;
     top:0;
     left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .bigimg{
+      width:vw(1600);
+      height:vw(960);
+      background:url("../assets/image/liucheng.png");
+      background-size:100% 100%;
+      position:relative;
+      .close{
+        position:absolute;
+        top:vw(16);
+        right:vw(16);
+        width:vw(26);
+        height:vw(26);
+        background:url("../assets/image/closedt@3x.png");
+        background-size:100% 100%;
+        cursor: pointer;
+
+      }
+
+    }
   }
   .header{
     width: 100%;
@@ -822,7 +890,7 @@ export default {
           .tabfon{
             display:inline-block;
             width:vw(4);
-            height:vh(20);
+            height:vw(20);
             background:rgba(75,126,254,1);
             margin-right:vw(8);
           }
@@ -1036,7 +1104,7 @@ export default {
           .tabfon{
             display:inline-block;
             width:vw(4);
-            height:vh(20);
+            height:vw(20);
             background:#F4DE71;
             margin-right:vw(8);
           }
